@@ -1,6 +1,6 @@
-import { Schema } from 'mongoose';
+import { model, Schema } from 'mongoose';
 
-export const titleSchema = new Schema(
+const titleSchema = new Schema(
   {
     title: { type: String, require: true, trim: true },
     content: { type: String, require: false, trim: true },
@@ -23,3 +23,5 @@ export const titleSchema = new Schema(
   },
   { timestamps: true },
 );
+
+export const Note = model('Note', titleSchema);
