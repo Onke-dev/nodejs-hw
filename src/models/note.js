@@ -3,10 +3,17 @@ import { model, Schema } from 'mongoose';
 const noteSchema = new Schema(
   {
     title: { type: String, required: true, trim: true },
-    content: { type: String, required: false, trim: true },
+    _content: { type: String, required: false, trim: true, default: '' },
+    get content() {
+      return this._content;
+    },
+    set content(value) {
+      this._content = value;
+    },
     tag: {
       type: String,
       required: false,
+      default: 'Todo',
       enum: [
         'Work',
         'Personal',
