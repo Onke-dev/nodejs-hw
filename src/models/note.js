@@ -1,12 +1,12 @@
 import { model, Schema } from 'mongoose';
 
-const titleSchema = new Schema(
+const noteSchema = new Schema(
   {
-    title: { type: String, require: true, trim: true },
-    content: { type: String, require: false, trim: true },
+    title: { type: String, required: true, trim: true },
+    content: { type: String, required: false, trim: true },
     tag: {
       type: String,
-      require: false,
+      required: false,
       enum: [
         'Work',
         'Personal',
@@ -24,4 +24,4 @@ const titleSchema = new Schema(
   { timestamps: true },
 );
 
-export const Note = model('Note', titleSchema);
+export const Note = model('Note', noteSchema);

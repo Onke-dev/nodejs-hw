@@ -1,4 +1,4 @@
-import HttpError from 'http-errors';
+import { HttpError } from 'http-errors';
 export const errorHandler = (err, req, res, next) => {
   if (err instanceof HttpError) {
     return res.status(err.status).json({
@@ -8,9 +8,7 @@ export const errorHandler = (err, req, res, next) => {
 
   const isProd = process.env.NODE_ENV === 'production';
 
-  res
-    .status(500)
-    .json({
-      message: isProd ? 'Something wrong. Please try again!' : err.message,
-    });
+  res.status(500).json({
+    message: isProd ? 'Something wrong. Please try again!' : err.message,
+  });
 };
