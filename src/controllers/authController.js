@@ -37,7 +37,7 @@ export const loginUser = async (req, res) => {
 
   const isValidPassword = await bcrypt.compare(password, user.password);
   if (!isValidPassword) {
-    throw createHttpError('Invalid credentials');
+    throw createHttpError(401, 'Invalid credentials');
   }
 
   await Session.deleteOne({ userId: user._id });
@@ -59,7 +59,7 @@ export const logoutUser = async (req, res) => {
   res.clearCookie('accessToken');
   res.clearCookie('refreshToken');
 
-  res.status(204).json({});
+  res.status(204).json();
 };
 
 export const refreshUserSession = async (req, res) => {
@@ -78,7 +78,7 @@ export const refreshUserSession = async (req, res) => {
     throw createHttpError(401, 'Session not found');
   }
 
-  const isSessionTokenExpired = session.refreshTokenValidUntill < new Date();
+  const isSessionTokenExpired = session.refreshTokenValidUntil < new Date();
 
   if (isSessionTokenExpired) {
     await session.deleteOne();
